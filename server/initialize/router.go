@@ -97,9 +97,12 @@ func Routers() *gin.Engine {
 		systemRouter.InitSysExportTemplateRouter(PrivateGroup)      // 导出模板
 		exampleRouter.InitCustomerRouter(PrivateGroup)              // 客户路由
 		exampleRouter.InitFileUploadAndDownloadRouter(PrivateGroup) // 文件上传下载功能路由
+	}
 
-		bizRouter.InitCollaboratorRouter(PublicGroup) //我的业务-合作人
-
+	// 外部接口
+	ExternalGroup := Router.Group("")
+	{
+		bizRouter.InitCollaboratorRouter(PrivateGroup, ExternalGroup) //我的业务-合作人
 	}
 
 	global.GVA_LOG.Info("router register success")

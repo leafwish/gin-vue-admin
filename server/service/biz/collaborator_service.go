@@ -9,7 +9,7 @@ import (
 type CollaboratorService struct{}
 
 func (cs *CollaboratorService) GetCollaborator(id uint) (collaborator biz.Collaborator, err error) {
-	err = global.GVA_DB.Where("id = ?", id).First(&collaborator).Error
+	err = global.GVA_DB.Where("id = ?", id).Preload("CollaboratorTeam").First(&collaborator).Error
 	return
 }
 
