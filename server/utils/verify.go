@@ -17,3 +17,7 @@ var (
 	ChangePasswordVerify   = Rules{"Password": {NotEmpty()}, "NewPassword": {NotEmpty()}}
 	SetUserAuthorityVerify = Rules{"AuthorityId": {NotEmpty()}}
 )
+
+var (
+	CollaboratorTeam = Rules{"TeamName": {NotEmpty()}}
+)
