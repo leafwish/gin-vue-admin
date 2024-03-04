@@ -64,6 +64,12 @@
             <el-button
               type="primary"
               link
+              icon="setting"
+              @click="openDrawer(scope.row)"
+            >人员列表</el-button>
+            <el-button
+              type="primary"
+              link
               icon="edit"
               @click="editCollaboratorTeam(scope.row)"
             >变更</el-button>
@@ -147,6 +153,27 @@
         </div>
       </template>
     </el-dialog>
+
+    <el-drawer
+      v-if="drawer"
+      v-model="drawer"
+      custom-class="auth-drawer"
+      :with-header="false"
+      size="40%"
+      title="人员列表"
+    >
+      <el-tabs
+        type="border-card"
+      >
+        <el-tab-pane label="人员列表">
+          <Members
+            ref="members"
+            :row="activeRow"
+            @changeRow="changeRow"
+          />
+        </el-tab-pane>
+      </el-tabs>
+    </el-drawer>
   </div>
 </template>
 
@@ -161,6 +188,7 @@ import {
 import { ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import { formatDate } from '@/utils/format'
+import Members from '@/view/biz/collaborator/components/members.vue'
 
 defineOptions({
   name: 'Collaborator'
@@ -255,6 +283,16 @@ const enterDialog = async() => {
 const openDialog = () => {
   type.value = 'create'
   dialogFormVisible.value = true
+}
+
+const drawer = ref(false)
+const activeRow = ref({})
+const openDrawer = (row) => {
+  drawer.value = true
+  activeRow.value = row
+}
+const changeRow = (key, value) => {
+  activeRow.value[key] = value
 }
 
 </script>
